@@ -1,3 +1,5 @@
+#Script para testear el mapa de trazabilidad y su funcionalidad de dibujar las rutas
+
 # Función para generar coordenadas aleatorias dentro de un rango específico
 function Get-RandomCoordinate {
     param (
@@ -11,10 +13,10 @@ function Get-RandomCoordinate {
     return @{lat=$lat; lon=$lon}
 }
 
-# URL de tu servidor Flask
+# URL de mi servidor
 $flaskUrl = "http://127.0.0.1:5000/local"
 
-# Loop infinito que se puede detener manualmente
+# Inicializa curl
 while ($true) {
     # Genera coordenadas aleatorias
     $coords = Get-RandomCoordinate
