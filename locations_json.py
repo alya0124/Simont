@@ -1,8 +1,6 @@
 import json
-from flask import jsonify
 
-
-def append_locations_json(location):
+def append_locations(location):
     try:
         with open('data/temp/locations.json', 'r') as file:
             data  = json.load(file)
@@ -14,7 +12,7 @@ def append_locations_json(location):
     with open('data/temp/locations.json', 'w') as file:
         json.dump(data, file, indent=4)
 
-def get_locations_json():
+def get_locations():
     try:
         with open('data/temp/locations.json', 'r') as file:
             data = json.load(file)
