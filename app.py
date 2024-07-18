@@ -95,18 +95,32 @@ def localizacion():
         return "Acción no autorizada", 405
 
 # Ruta y funcion para obtener los datos del archivo json temporal. Api consumible para async's functions en JavaScript
-@app.route('/get-locations/<fecha>/<id_s>', methods=['GET'])
+@app.route('/get-locations/<fecha>', methods=['GET'])
 @login_required
-def get_locations(fecha, id_s):
+def get_locations(fecha):
 
     if request.method == 'GET':
 
-        locations = locations_db.get_locations(id_s, fecha)
+        ids = request.args.get('ids')
+
+        if not ids:
+            return jsonify({"error": "No IDs provided"}), 400
+        
+        ids_list = ids.split(',')
+
+        locations = locations_db.get_locations(ids_list, fecha)
+        
         return jsonify(locations), 200 if 'coordenadas' in locations else 400
-    
+
     else:
 
         return "Acción no autorizada", 405
+
+@app.route('/get-dispositivos', methods=['GET'])
+@login_required
+def get_devices():
+    devices = current_user.get_devices()
+    return jsonify({"dispositivos": devices}), 200
 
 
 # Inicia el server en el puerto 443 (https)

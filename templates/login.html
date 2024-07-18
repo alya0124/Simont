@@ -4,21 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 <body>
-    <form action="login" method="post">
-        <input type="text" name="username" placeholder="Usuario">
-        <input type="password" name="password" placeholder="Contraseña">
-        <input type="submit" value="Iniciar Sesion">
-    </form>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
+    <div class="container-form">
+        <form action="login" method="post">
+            <label for="">Usuario</label>
+            <input type="text" name="username" placeholder="Usuario">
+            <label for="">Contraseña</label>
+            <input type="password" name="password" placeholder="Contraseña">
+            <input type="submit" value="Iniciar Sesion">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </form>
+    </div>
+   
+
+    
 </body>
 </html>

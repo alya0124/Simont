@@ -11,5 +11,10 @@
     <h1>Hola {{user}}, un gusto volver a tenerte de cuenta</h1>
     <div id="map" style="width: 40%; height: 400px;" ></div>
     <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+
+    <form action="logout">
+        <input type="submit" value="salir">
+    </form>
+
 </body>
 </html>

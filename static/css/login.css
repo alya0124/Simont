@@ -1,0 +1,104 @@
+*{
+    margin: 0;
+}
+
+body {
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: aliceblue;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.container-form{
+    display: block;
+    justify-content: center;
+    width: 30%;
+}
+
+h1{
+    width: 100%;
+    font-size: 22px;
+    padding: 10px;
+}
+
+form{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 16px;
+    padding: 10px;
+    margin: 20px;
+}
+
+label{
+    width: 100%;
+    padding: 5px;
+    margin: 5px;
+}
+
+input[type="text"]{
+    width: 100%;
+    padding: 5px;
+    margin: 5px;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+input[type="file"]{
+    width: 100%;
+    padding: 5px;
+    margin: 5px;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+
+}
+
+input[type='password']{
+    width: 100%;
+    padding: 5px;
+    margin: 5px;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+input[type="submit"]{
+    width: 100%;
+    height: 25px;
+    margin: 5px;
+    border-radius: 10px;
+    border: none;
+    background-color: greenyellow;
+}
+
+input[type="reset"]{
+    width: 100%;
+    height: 25px;
+    margin: 5px;
+    border-radius: 10px;
+    border: none;
+    background-color: red;
+    color: white;
+}
+
+input[type="submit"]:hover{
+    cursor: pointer;
+    background-color: green;
+    color: white;
+    transition-duration: 0.5s;
+}
+
+input[type="reset"]:hover{
+    cursor: pointer;
+    background-color:crimson;
+    transition-duration: 0.5s;
+}

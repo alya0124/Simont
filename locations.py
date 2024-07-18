@@ -48,14 +48,31 @@ class LocationsDataBase():
         except ValueError:
             return {"error": "Formato de fecha incorrecto. Use YYYY-MM-DD"}
          
-        document = self.__collec_loc.find_one({'_id': id_s})
+        all_locations = {}
 
-        if document is None or date not in document.get('fechas', {}):
-            return {"error": "No se encontraron localizaciones para esta fecha"}
+        for id in id_s:
 
-        localizaciones = document['fechas'][date]
+            document = self.__collec_loc.find_one({'_id': id})
 
-        coordenadas = [{"lat": float(loc["latitud"]), "lng": float(loc["longitud"])} for loc in localizaciones]
+            if document and 'fechas' in document and date in document['fechas']:
 
-        return {"coordenadas": coordenadas}
+                localizaciones = document['fechas'][date]
+                coordenadas = [{'lat': float(loc['latitud']), 'lng': float(loc['longitud'])} for loc in localizaciones]
+                all_locations[id] = coordenadas
+                
+            else:
+                all_locations[id] = []
 
+        return {'coordenadas': all_locations}
+
+
+if __name__ == '__main__':
+
+    id_s = ['160', '170', '180']
+    fecha =  datetime.now().strftime('%Y-%m-%d')
+
+    db = LocationsDataBase()
+
+    datos = db.get_locations(id_s, fecha)
+
+    print(datos)
