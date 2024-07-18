@@ -22,7 +22,7 @@ while ($true) {
     $coords = Get-RandomCoordinate
 
     # Crea los datos de la solicitud
-    $postData = "lat=$($coords.lat)&lon=$($coords.lon)"
+    $postData = "id=160&lat=$($coords.lat)&lon=$($coords.lon)"
 
     # Envía la solicitud POST usando curl
     curl.exe -X POST -d $postData $flaskUrl
