@@ -64,15 +64,39 @@ class LocationsDataBase():
                 all_locations[id] = []
 
         return {'coordenadas': all_locations}
+    
+    def get_ids(self):
+
+        document = self.__collec_loc.find({})
+
+        locations = {}
+        no_dispositivo = 0
+
+        for location in document:
+
+            no_dispositivo += 1
+            locations[f'Dispositivo {no_dispositivo}'] = location['_id']
+
+        return locations
 
 
 if __name__ == '__main__':
 
-    id_s = ['160', '170', '180']
+    """id_s = ['160', '170', '180']
     fecha =  datetime.now().strftime('%Y-%m-%d')
 
     db = LocationsDataBase()
 
     datos = db.get_locations(id_s, fecha)
 
-    print(datos)
+    print(datos)"""
+
+    db = LocationsDataBase()
+    locations = db.get_ids()
+
+    print(locations)
+
+    if '170' not in locations.values():
+        print('Dispositivo 170 no registra localizaciones.')
+    else:
+        print(f'Dispositivo 170 registra localizaciones')

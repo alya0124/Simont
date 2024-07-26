@@ -1,5 +1,5 @@
 # Modulos importados
-from flask import Flask, request, render_template, jsonify, redirect, url_for, flash
+from flask import Flask, request, render_template, jsonify, redirect, url_for, flash, abort
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from datetime import datetime
 # Modulos importados
@@ -17,6 +17,19 @@ login_manager.init_app(app)
 
 # Instancia de la clase para consultar la base de datos
 locations_db = LocationsDataBase()
+
+
+# Funcion para requerir la id al hacer peticion http post a la ruta local
+def id_required(f):
+    def decorated_function(*args, **kwargs):
+        data = request.form
+        id = data.get('id')
+        authorized_ids = locations_db.get_ids()
+        if id not in authorized_ids.values():
+            abort(403)  
+        return f(*args, **kwargs)
+    return decorated_function
+
 
 # Configuracion de la clase UserLoader para cargar los usuarios del sistema
 @login_manager.user_loader
@@ -70,6 +83,7 @@ def iniciar_sesion():
 
 # Ruta y funcion para obtener los datos de la raspberry que envia a traves de una peticion HTTP POST y los guarda en un archivo json temporal
 @app.route('/local', methods=['POST'])
+@id_required
 def localizacion():
 
     if request.method == 'POST':
@@ -107,7 +121,6 @@ def get_locations(fecha):
             return jsonify({"error": "No IDs provided"}), 400
         
         ids_list = ids.split(',')
-
         locations = locations_db.get_locations(ids_list, fecha)
         
         return jsonify(locations), 200 if 'coordenadas' in locations else 400
