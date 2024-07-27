@@ -72,12 +72,15 @@ class LocationsDataBase():
         locations = {}
         no_dispositivo = 0
 
-        for location in document:
+        if document is None:
+            return None
+        else:
+            for location in document:
 
-            no_dispositivo += 1
-            locations[f'Dispositivo {no_dispositivo}'] = location['_id']
+                no_dispositivo += 1
+                locations[f'Dispositivo {no_dispositivo}'] = location['_id']
 
-        return locations
+            return locations
 
 
 if __name__ == '__main__':
