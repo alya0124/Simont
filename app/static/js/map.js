@@ -101,6 +101,52 @@ async function obtenerDatos(ids) {
     }
 }
 
+function showDeviceTable(deviceId, driverData) {
+    var fecha = fecha_actual(); // Obtén la fecha actual
+    var tableBody = document.querySelector('#deviceTable tbody');
+
+    // Borra el contenido actual del cuerpo de la tabla
+    tableBody.innerHTML = '';
+
+    // Crea una nueva fila de datos
+    var dataRow = document.createElement('tr');
+
+    // Datos para la fila
+    var dataCells = [
+        deviceId || 'No disponible',
+        driverData.nombre || 'No disponible',
+        driverData.apellido_paterno || 'No disponible',
+        driverData.apellido_materno || 'No disponible'
+    ];
+
+    // Añadir celdas de datos
+    dataCells.forEach(data => {
+        var dataCell = document.createElement('td');
+        dataCell.textContent = data;
+        dataRow.appendChild(dataCell);
+    });
+
+    // Crea la celda de alertas
+    var alertasCell = document.createElement('td');
+    var alertasContent = 'No disponible';
+
+    if (driverData.alertas && Object.keys(driverData.alertas).length > 0) {
+        alertasContent = '';
+        for (var fecha in driverData.alertas) {
+            alertasContent += `<strong>${fecha}:</strong> ${driverData.alertas[fecha].join(', ')}<br>`;
+        }
+    }
+
+    alertasCell.innerHTML = alertasContent;
+    dataRow.appendChild(alertasCell);
+
+    // Añade la fila de datos al cuerpo de la tabla
+    tableBody.appendChild(dataRow);
+
+    // Muestra la tabla (asegúrate de que esté visible si estaba oculta)
+    document.getElementById('deviceTable').style.display = 'table';
+}
+
 // Mostrar el modal
 function showModal(data) {
     var fecha = fecha_actual();
@@ -181,7 +227,10 @@ async function dibujarRuta() {
                         console.log('No se encontraron datos del chofer para el ID:', id);
                     }
                 });
-                
+
+                const choferData = datos_choferes[id];
+                showDeviceTable(id, choferData)
+
                 ultimaCoordenada = lastCoord; // Guardar la última coordenada
                 colorIndex++;
             }

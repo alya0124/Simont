@@ -186,3 +186,28 @@ body {
         width: 95%;
     }
 }
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+}
+
+/* Estilos para el encabezado de la tabla */
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Estilos para las filas de datos */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
