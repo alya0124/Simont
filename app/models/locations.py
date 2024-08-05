@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, DESCENDING
 from datetime import datetime
 
 class LocationsDataBase():
@@ -126,6 +126,9 @@ class LocationsDataBase():
         except Exception as e:
             print(f'Error al obtener la huella digital en MongoDB: {e}')
             return {'error': str(e)}
+        
+    def get_last_location(self, device_id):
+        return self.__collec_loc.find_one({"id": device_id}, sort=[("timestamp", DESCENDING)])
 
 
 

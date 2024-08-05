@@ -31,7 +31,7 @@ def esta_cerca_de_segmento(coordenada, segmento, tolerancia=0.00045):
 def verificar_estaticidad(lat, lon, id, threshold_minutos=5):
  
     now = datetime.now()
-    last_location = locations_db.find_one({"id": id}, sort=[("timestamp", -1)])
+    last_location = locations_db.get_last_location(id)
 
     if not last_location:
         return False  # No hay registro previo, no se puede verificar estaticidad
