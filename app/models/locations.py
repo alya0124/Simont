@@ -81,25 +81,54 @@ class LocationsDataBase():
                 locations[f'Dispositivo {no_dispositivo}'] = location['_id']
 
             return locations
+        
+    def add_fingerprint(self, id, fingerprint):
+        try:
+            result = self.__collec_loc.update_one(
+                {'_id': id},
+                {'$set': {'huella_digital': fingerprint}}
+            )
+            
+            if result.matched_count == 0:
+                return {'error': 'Dispositivo no encontrado'}
+            
+            return {'status': 'success'}
+        
+        except Exception as e:
+            print(f'Error al actualizar la huella digital en MongoDB: {e}')
+            return {'error': str(e)}
+        
+    def get_fingerprints(self, ids):
+        try:
+            # Buscar los documentos con los IDs proporcionados
+            documents = self.__collec_loc.find({'_id': {'$in': ids}}, {'_id': 1, 'huella_digital': 1})
+
+            # Crear un diccionario para almacenar los resultados
+            fingerprints = {}
+            for document in documents:
+                fingerprints[document['_id']] = document.get('huella_digital', 'No disponible')
+            
+            return fingerprints
+
+        except Exception as e:
+            print(f'Error al obtener las huellas digitales en MongoDB: {e}')
+            return {'error': str(e)}
+        
+    def get_fingerprint(self, id):
+        try: 
+            document = self.__collec_loc.find_one({'_id': id})
+
+            if document and 'huella_digital' in document:
+                return document['huella_digital']
+            else:
+                return 'No disponible'
+            
+        except Exception as e:
+            print(f'Error al obtener la huella digital en MongoDB: {e}')
+            return {'error': str(e)}
+
+
 
 
 if __name__ == '__main__':
-
-    """id_s = ['160', '170', '180']
-    fecha =  datetime.now().strftime('%Y-%m-%d')
-
-    db = LocationsDataBase()
-
-    datos = db.get_locations(id_s, fecha)
-
-    print(datos)"""
-
-    db = LocationsDataBase()
-    locations = db.get_ids()
-
-    print(locations)
-
-    if '170' not in locations.values():
-        print('Dispositivo 170 no registra localizaciones.')
-    else:
-        print(f'Dispositivo 170 registra localizaciones')
+    pass

@@ -1,104 +1,118 @@
-*{
-    margin: 0;
-}
-
 body {
-    position: fixed;
+    margin: 0;
+    padding: 0;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    background: var(--background-url) no-repeat center center fixed; /* Imagen de fondo */
+    background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+    font-family: 'Arial', sans-serif;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background-color: aliceblue;
-    font-family: 'Courier New', Courier, monospace;
+    background: rgba(0, 0, 0, 0.5); /* Color negro con opacidad para hacer la imagen más opaca */
+    z-index: 1;
 }
 
-.container-form{
-    display: block;
-    justify-content: center;
-    width: 30%;
+.login-container {
+    position: relative;
+    width: 350px; /* Ajuste de tamaño del contenedor */
+    padding: 40px 30px;
+    background: rgba(0, 51, 51, 0.4); /* Fondo verde oscuro con más transparencia */
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    z-index: 2; /* Asegura que el contenedor esté sobre la capa oscura */
 }
 
-h1{
-    width: 100%;
-    font-size: 22px;
-    padding: 10px;
-}
-
-form{
+.circle {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px; /* Ajuste de tamaño del círculo */
+    height: 100px; /* Ajuste de tamaño del círculo */
+    background: rgba(127, 140, 141, 0.5); /* Azul como gris transparente */
+    border-radius: 50%;
     display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    border-radius: 10px;
-    background-color: white;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.circle i {
+    color: white;
+    font-size: 46px; /* Ajuste del tamaño del icono */
+}
+
+.login-form h2 {
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-container i {
+    position: absolute;
+    left: 10px; /* Ajuste del margen izquierdo del ícono */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffffff;
+}
+
+.input-container input {
+    width: calc(100% - 20px); /* Ajuste de ancho de los inputs */
+    padding: 12px 10px 12px 35px; /* Ajuste de padding de los inputs */
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2); /* Fondo blanco con transparencia */
+    color: #ffffff;
     font-size: 16px;
-    padding: 10px;
-    margin: 20px;
 }
 
-label{
-    width: 100%;
-    padding: 5px;
-    margin: 5px;
+.input-container input::placeholder {
+    color: #ffffff;
 }
 
-input[type="text"]{
+button {
     width: 100%;
-    padding: 5px;
-    margin: 5px;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-}
-
-input[type="file"]{
-    width: 100%;
-    padding: 5px;
-    margin: 5px;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-
-}
-
-input[type='password']{
-    width: 100%;
-    padding: 5px;
-    margin: 5px;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-}
-
-input[type="submit"]{
-    width: 100%;
-    height: 25px;
-    margin: 5px;
-    border-radius: 10px;
+    padding: 12px;
     border: none;
-    background-color: greenyellow;
-}
-
-input[type="reset"]{
-    width: 100%;
-    height: 25px;
-    margin: 5px;
-    border-radius: 10px;
-    border: none;
-    background-color: red;
-    color: white;
-}
-
-input[type="submit"]:hover{
+    border-radius: 5px;
+    background: #005757; /* Botón verde azulado */
+    color: #ffffff;
+    font-size: 16px;
     cursor: pointer;
-    background-color: green;
-    color: white;
-    transition-duration: 0.5s;
+    transition: background 0.3s;
 }
 
-input[type="reset"]:hover{
-    cursor: pointer;
-    background-color:crimson;
-    transition-duration: 0.5s;
+button:hover {
+    background: #007f7f; /* Color más claro al hacer hover */
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 15px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.forgot-password:hover {
+    color: #007f7f; /* Color más claro al hacer hover */
 }

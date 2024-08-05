@@ -1,32 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesion</title>
+    <title>Login - Flota de Autobuses</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --background-url: url("{{ url_for('static', filename='images/auto-bus.png') }}");
+        }
+    </style>
+
 </head>
 <body>
-    <div class="container-form">
-        <form action="login" method="post">
-            <label for="">Usuario</label>
-            <input type="text" name="username" placeholder="Usuario">
-            <label for="">Contraseña</label>
-            <input type="password" name="password" placeholder="Contraseña">
-            <input type="submit" value="Iniciar Sesion">
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
+    <div class="login-container">
+        <div class="circle">
+            <i class="fas fa-user"></i>
+        </div>
+        <form class="login-form" action="/login" method="post">
+            <h2>Iniciar Sesión</h2>
+            <div class="input-container">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Usuario" name="username" required>
+            </div>
+            <div class="input-container">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Contraseña" name="password" required>
+            </div>
+            <button type="submit">Entrar</button>
+            <a href="#" class="forgot-password">¿Has olvidado tu contraseña?</a>
         </form>
-    </div>
-   
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
 
-    
+    </div>
 </body>
 </html>
+
+

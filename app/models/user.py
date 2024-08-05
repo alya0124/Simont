@@ -17,29 +17,28 @@ class User(UserMixin):
     def get(user_id):
         user_data = collec_user.find_one({'_id': user_id})
         if user_data:
-            return User(user_data["_id"], user_data['username'], user_data['password'], user_data['dispositivos'], user_data('admin', False))
+            return User(user_data["_id"], user_data['username'], user_data['password'], user_data['dispositivos'], user_data.get('admin', False))
         return None
-
+    
     @staticmethod
     def get_by_username(username):
         user_data = collec_user.find_one({"username": username})
 
         if user_data:
-            return User(user_data['_id'], user_data['username'], user_data['password'], user_data['dispositivos'], user_data('admin', False))
+            return User(user_data['_id'], user_data['username'], user_data['password'], user_data['dispositivos'], user_data.get('admin', False))
         return None
     
     def get_devices(self):
         return self.dispositivos
 
-    
 
 if __name__ == "__main__":
 
     new_user = {
-        '_id': '123',
-        'username': 'Alan',
+        '_id': '293',
+        'username': 'Natali',
         'password': '12345',
-        'dispositivos': ['160', '256', '512']
+        'dispositivos': ['130', '190', '320', '250']
     }
 
     collec_user.insert_one(new_user)
