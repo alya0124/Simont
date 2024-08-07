@@ -7,10 +7,118 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    
 </head>
 <body>
-    
-    <h1>Hola {{user}}, un gusto volver a tenerte de cuenta</h1>
+
+    <div class="sidebar">
+        <span class="sidebar-toggle" onclick="toggleSidebar()">&#9776;</span>
+        <nav>
+            <div class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-home"></i> <span class="link-text">Inicio</span></a>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-route"></i> <span class="link-text">Datos del Conductor</span></a>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-cogs"></i> <span class="link-text">Configuración</span></a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="profile-container" id="profileContainer">
+            <div class="profile-image">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-info">
+                <h4>Hola {{user}} <span id="driverName">un gusto volver a tenerte de cuenta</span></h4>
+            </div>
+        </div>
+
+        <div id="map" style="width: 40%; height: 400px;"></div>
+
+        <form action="logout">
+            <input type="submit" value="Salir">
+        </form>
+
+        <table id="deviceTable">
+            <thead>
+                <tr>
+                    <th>ID Dispositivo</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Alertas</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal de información del chofer -->
+    <div id="choferModal" class="modal">
+        <div id="choferModalContent" class="modal-content">
+            <div id="choferModalHeader" class="modal-header">
+                <h2 id="modalTitulo">Información del Chofer</h2>
+                <button id="choferModalClose" class="modal-close">X</button>
+            </div>
+            <div id="modalBody" class="modal-body">
+                <p><label for="choferNombre">Nombre:</label> <span id="choferNombre">No disponible</span></p>
+                <p><label for="choferApellidoPaterno">Apellido Paterno:</label> <span id="choferApellidoPaterno">No disponible</span></p>
+                <p><label for="choferApellidoMaterno">Apellido Materno:</label> <span id="choferApellidoMaterno">No disponible</span></p>
+                <p><label for="choferAsistencia">Asistencia Hoy:</label> <span id="choferAsistencia">No disponible</span></p>
+                <p><label for="choferHoraEntrada">Hora de entrada:</label> <span id="choferHoraEntrada">No disponible</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                document.getElementById("profileContainer").classList.add("visible");
+                document.getElementById("map").classList.add("visible");
+            }, 500);
+        });
+
+        function toggleSidebar() {
+            var sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('expanded');
+        }
+
+
+        function toggleModal() {
+            var modal = document.getElementById('choferModal');
+            modal.classList.toggle('visible');
+        }
+
+       
+
+        document.getElementById('choferModalClose').addEventListener('click', toggleModal);
+    </script>
+
+    <!-- 
+    <div class="sidebar">
+        <span class="sidebar-toggle" onclick="toggleSidebar()">&#9776;</span>
+        <nav>
+            <div class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-home"></i> <span class="link-text">Inicio</span></a>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-route"></i> <span class="link-text">Datos del Conductor</span></a>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-cogs"></i> <span class="link-text">Configuración</span></a>
+            </div>
+        </nav>
+    </div>
+
+
     <div id="map" style="width: 40%; height: 400px;"></div>
     
     <form action="logout">
@@ -32,7 +140,7 @@
     </table>
     
 
-    <!-- Modal de información del chofer -->
+   
     <div id="choferModal" class="modal">
         <div id="choferModalContent" class="modal-content">
             <div id="choferModalHeader" class="modal-header">
@@ -48,7 +156,9 @@
             </div>
         </div>
     </div>
-  
+
+
     <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+-->
 </body>
 </html>
