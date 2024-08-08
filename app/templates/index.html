@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index/index.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index/style-principal-content.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index/main-content.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index/sidebar.css') }}">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -24,11 +26,23 @@
                     <a class="nav-link" href="{{ url_for('main.inicio') }}"><i class="fas fa-home"></i> <span class="link-text">Inicio</span></a>
                 </div>
                 <div class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-route"></i> <span class="link-text">Datos del Conductor</span></a>
+                    <a class="nav-link" href="#"><i class="fas fa-user"></i> <span class="link-text">Mis datos</span></a>
                 </div>
+
                 <div class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-cogs"></i> <span class="link-text">Configuración</span></a>
+                    <a class="nav-link" href="#"><i class="fas fa-route"></i> <span class="link-text">Historial de Rutas</span></a>
                 </div>
+
+                {% if admin %}
+                    <div class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-cogs"></i> <span class="link-text">Panel de Control Administrador</span></a>
+                    </div>
+                {% else %}
+                    <div class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-user-cog"></i> <span class="link-text">Panel de Control Usuario</span></a>
+                    </div>
+                {% endif %}
+
             </div>
             <div class="nav-item">
                 <a class="nav-link" href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i> <span class="link-text">Cerrar sesión</span></a>
@@ -36,51 +50,56 @@
         </nav>
     </div>
 
-    <div class="main-content">
-        <div class="profile-container" id="profileContainer">
-            <div class="profile-image">
-                <i class="fas fa-user"></i>
+    <div class="content-wrapper">
+
+        <div class="main-content">
+            <div class="profile-container" id="profileContainer">
+                <div class="profile-image">
+                    <i class="fas fa-user"></i>
+                </div>
+            <div class="profile-info">
+                <h4>Hola {{user}} <span id="driverName">un gusto volver a tenerte de cuenta</span></h4>
             </div>
-        <div class="profile-info">
-            <h4>Hola {{user}} <span id="driverName">un gusto volver a tenerte de cuenta</span></h4>
+        </div>
+    
+        <div class="principal-content">
+    
+            <div id="map" class="map-container"></div>
+    
+            <table id="deviceTable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>ID Dispositivo</th>
+                            <th>Conductor</th>
+                            <th>Alertas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+        </div>
+    
+        </div>
+    
+        <div id="choferModal" class="modal">
+            <div id="choferModalContent" class="modal-content">
+                <div id="choferModalHeader" class="modal-header">
+                    <h2 id="modalTitulo">Datos del Conductor</h2>
+                    <button id="choferModalClose" class="modal-close">X</button>
+                </div>
+                <div id="modalBody" class="modal-body">
+                    <p><label for="choferNombre">Nombre:</label> <span id="choferNombre">No disponible</span></p>
+                    <p><label for="choferApellidoPaterno">Apellido Paterno:</label> <span id="choferApellidoPaterno">No disponible</span></p>
+                    <p><label for="choferApellidoMaterno">Apellido Materno:</label> <span id="choferApellidoMaterno">No disponible</span></p>
+                    <p><label for="choferAsistencia">Asistencia Hoy:</label> <span id="choferAsistencia">No disponible</span></p>
+                    <p><label for="choferHoraEntrada">Hora de entrada:</label> <span id="choferHoraEntrada">No disponible</span></p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="principal-content">
-
-        <div id="map" class="map-container"></div>
-
-        <table id="deviceTable">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>ID Dispositivo</th>
-                        <th>Operador</th>
-                        <th>Alertas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-
-    <div id="choferModal" class="modal">
-        <div id="choferModalContent" class="modal-content">
-            <div id="choferModalHeader" class="modal-header">
-                <h2 id="modalTitulo">Información del Chofer</h2>
-                <button id="choferModalClose" class="modal-close">X</button>
-            </div>
-            <div id="modalBody" class="modal-body">
-                <p><label for="choferNombre">Nombre:</label> <span id="choferNombre">No disponible</span></p>
-                <p><label for="choferApellidoPaterno">Apellido Paterno:</label> <span id="choferApellidoPaterno">No disponible</span></p>
-                <p><label for="choferApellidoMaterno">Apellido Materno:</label> <span id="choferApellidoMaterno">No disponible</span></p>
-                <p><label for="choferAsistencia">Asistencia Hoy:</label> <span id="choferAsistencia">No disponible</span></p>
-                <p><label for="choferHoraEntrada">Hora de entrada:</label> <span id="choferHoraEntrada">No disponible</span></p>
-            </div>
-        </div>
-    </div>
+    
 
     <script src="{{ url_for('static', filename='js/index/map.js') }}"></script>
     <script src="{{ url_for('static', filename='js/index/style.js') }}"></script>

@@ -1,0 +1,110 @@
+/* Barra lateral por defecto */
+.sidebar {
+    width: 5%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #00332e;
+    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    z-index: 1000;
+    flex-direction: column;
+    align-items: center;
+    transition: width 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    position: fixed;
+}
+
+/* Barra lateral expandida */
+.sidebar:hover,
+.sidebar.expanded {
+    width: 250px;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Elementos de navegación */
+.sidebar .nav-item {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.sidebar .nav-link {
+    color: #ffffff;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column; /* Alinea ícono y texto en columna */
+    align-items: center;
+    padding: 15px;
+    border-radius: 12px;
+    transition: background-color 0.3s, color 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+/* Estilo al pasar el ratón */
+.sidebar .nav-link:hover {
+    background-color: #004d40;
+    color: #ffffff;
+}
+
+/* Iconos */
+.sidebar .nav-link i {
+    font-size: 24px;
+    margin-bottom: 5px; /* Espacio entre ícono y texto */
+}
+
+/* Texto de navegación */
+.sidebar .nav-link span {
+    display: none; /* Oculta el texto por defecto */
+    font-size: 14px; /* Tamaño más pequeño del texto */
+}
+
+.sidebar:hover .nav-link span,
+.sidebar.expanded .nav-link span {
+    display: block; /* Muestra el texto cuando se expande */
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+}
+
+
+
+/* Ajustes para el menú lateral en pantallas pequeñas */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 5%px;
+    }
+
+    .sidebar.expanded {
+        width: 250px;
+    }
+
+    .sidebar .nav-link i {
+        font-size: 19px;
+        margin-bottom: 5px; /* Espacio entre ícono y texto */
+    }
+
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 5%;
+    }
+
+    .sidebar.expanded {
+        width: 150px;
+    }
+
+    .sidebar .nav-link i {
+        font-size: 14px;
+        margin-bottom: 5px; /* Espacio entre ícono y texto */
+    }
+}

@@ -10,4 +10,5 @@ def home():
 @main_bp.route('/inicio')
 @login_required
 def inicio():
-    return render_template('index.html', user=current_user.username)
+    admin = current_user.admin
+    return render_template('index.html', user=current_user.username, admin=admin)

@@ -75,7 +75,7 @@ body::before {
 }
 
 .input-container input {
-    width: calc(100% - 20px); /* Ajuste de ancho de los inputs */
+    width: calc(100% - 50px); /* Ajuste de ancho de los inputs */
     padding: 12px 10px 12px 35px; /* Ajuste de padding de los inputs */
     border: none;
     border-radius: 5px;
@@ -114,5 +114,38 @@ button:hover {
 }
 
 .forgot-password:hover {
-    color: #007f7f; /* Color más claro al hacer hover */
+    color: #007f7f; /* Color más claro al hacer hover */
+}
+
+/* Media queries para hacer el diseño más responsivo */
+@media (max-width: 600px) {
+    .login-container {
+        width: 90%; /* Ajuste en pantallas pequeñas */
+        padding: 20px; /* Reducción del padding */
+    }
+
+    .circle {
+        width: 80px; /* Ajuste del tamaño del círculo */
+        height: 80px;
+    }
+
+    .circle i {
+        font-size: 36px; /* Ajuste del tamaño del icono */
+    }
+
+    .login-form h2 {
+        font-size: 20px; /* Ajuste de tamaño del texto */
+    }
+
+    .input-container input {
+        font-size: 14px; /* Ajuste de tamaño del texto */
+    }
+
+    button {
+        font-size: 14px; /* Ajuste del tamaño del texto en el botón */
+    }
+}
+
+#flash-messages {
+    transition: opacity 0.3s ease-out;
 }

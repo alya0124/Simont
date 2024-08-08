@@ -137,13 +137,13 @@ function showDeviceTable(deviceId, driverData, color_temp) {
     document.getElementById('deviceTable').style.display = 'table';
 }
 
-// Mostrar el modal
 function showModal(data) {
-    var fecha = fecha_actual();
+    // Actualiza los datos del modal
     document.getElementById('choferNombre').textContent = data.nombre || 'No disponible';
     document.getElementById('choferApellidoPaterno').textContent = data.apellido_paterno || 'No disponible';
     document.getElementById('choferApellidoMaterno').textContent = data.apellido_materno || 'No disponible';
     
+    var fecha = fecha_actual();
     if (data.asistencias && data.asistencias[fecha]) {
         document.getElementById('choferAsistencia').textContent = data.asistencias[fecha].asistencia ? 'Sí' : 'No';
         document.getElementById('choferHoraEntrada').textContent = data.asistencias[fecha].hora_registro || 'No disponible';
@@ -151,13 +151,23 @@ function showModal(data) {
         document.getElementById('choferAsistencia').textContent = 'No disponible';
         document.getElementById('choferHoraEntrada').textContent = 'No disponible';
     }
+
+    document.getElementById('choferModalHeader').style.backgroundColor = '#00332e'
+    // Muestra el modal con animación
+    var modal = document.getElementById('choferModal');
+    modal.style.display = 'flex';
+    modal.style.opacity = 0;
+    setTimeout(() => modal.style.opacity = 1, 10);
     
-    document.getElementById('choferModal').style.display = 'flex';
 }
 
-// Ocultar el modal
 function closeModal() {
-    document.getElementById('choferModal').style.display = 'none';
+    // Oculta el modal con animación
+    var modal = document.getElementById('choferModal');
+    modal.style.opacity = 0;
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
 }
 
 // Event listener para cerrar el modal
@@ -213,15 +223,15 @@ async function dibujarRuta() {
                     .bindPopup(`Dispositivo: ${id}<br>Última posición: (${lastCoord[0]}, ${lastCoord[1]})`)
                     .addTo(map);
 
-                marker.on('click', () => {
-                    const choferData = datos_choferes[id];
-                    if (choferData) {
-                        // Mostrar el modal con los datos del chofer
-                        showModal(choferData);
-                    } else {
-                        console.log('No se encontraron datos del chofer para el ID:', id);
-                    }
-                });
+                    marker.on('click', () => {
+                        const choferData = datos_choferes[id];
+                        if (choferData) {
+                            showModal(choferData);
+                        } else {
+                            console.log('No se encontraron datos del chofer para el ID:', id);
+                        }
+                    });
+                    
 
                 const choferData = datos_choferes[id];
                 showDeviceTable(id, choferData, color_temp)

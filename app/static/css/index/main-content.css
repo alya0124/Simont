@@ -1,0 +1,85 @@
+/* Estilos para el contenido principal */
+.main-content {
+    margin-left: 60px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transition: margin-left 0.3s ease;
+}
+
+/* Estilos para el contenedor de perfil */
+.profile-container {
+    display: flex;
+    align-items: center;
+    background: #00332e;
+    padding: 20px;
+    border-radius: 15px;
+    color: #ffffff;
+    margin-bottom: 30px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transition: padding 0.3s ease, margin-bottom 0.3s ease;
+}
+
+/* Estilos para la imagen de perfil */
+.profile-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-right: 20px;
+}
+
+/* Estilos para el icono dentro de la imagen de perfil */
+.profile-image i {
+    font-size: 40px;
+    color: #00332e;
+}
+
+/* Estilos para la información del perfil */
+.profile-info h4 {
+    margin: 0;
+    font-size: 1.7em;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Media Queries para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 10px;
+        padding: 15px;
+    }
+
+    .profile-container {
+        flex-direction: column; /* Cambia a una disposición vertical en pantallas pequeñas */
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .profile-image {
+        width: 60px;
+        height: 60px;
+        margin-right: 0;
+        margin-bottom: 10px; /* Espacio inferior en pantallas pequeñas */
+    }
+
+    .profile-image i {
+        font-size: 30px;
+    }
+
+    .profile-info h4 {
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-info h4 {
+        font-size: 1.1em;
+    }
+}
