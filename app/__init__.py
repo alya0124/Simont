@@ -3,13 +3,17 @@ from flask_login import LoginManager
 from flask_cors import CORS
 from app.models.locations import LocationsDataBase
 from app.models.user import User
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 locations_db = LocationsDataBase()
 
 def create_app():
     app = Flask(__name__, static_folder='static', template_folder='templates')
     CORS(app,  resources={r"/*": {"origins": "*"}})
-    app.secret_key = 'secret_key'
+    app.secret_key = os.getenv('SECRET_KEY')
 
     login_manager = LoginManager()
     login_manager.init_app(app)
