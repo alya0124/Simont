@@ -4,27 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index/style-principal-content.css') }}">
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
     
 </head>
 <body>
 
     <div class="sidebar">
         <span class="sidebar-toggle" onclick="toggleSidebar()">&#9776;</span>
-        <nav>
-            <div class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-home"></i> <span class="link-text">Inicio</span></a>
+        <nav class="nav-container">
+            <div>
+                <div class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.inicio') }}"><i class="fas fa-home"></i> <span class="link-text">Inicio</span></a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-route"></i> <span class="link-text">Datos del Conductor</span></a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-cogs"></i> <span class="link-text">Configuración</span></a>
+                </div>
             </div>
             <div class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-route"></i> <span class="link-text">Datos del Conductor</span></a>
-            </div>
-            <div class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-cogs"></i> <span class="link-text">Configuración</span></a>
+                <a class="nav-link" href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i> <span class="link-text">Cerrar sesión</span></a>
             </div>
         </nav>
     </div>
@@ -34,33 +41,31 @@
             <div class="profile-image">
                 <i class="fas fa-user"></i>
             </div>
-            <div class="profile-info">
-                <h4>Hola {{user}} <span id="driverName">un gusto volver a tenerte de cuenta</span></h4>
-            </div>
+        <div class="profile-info">
+            <h4>Hola {{user}} <span id="driverName">un gusto volver a tenerte de cuenta</span></h4>
         </div>
-
-        <div id="map" style="width: 40%; height: 400px;"></div>
-
-        <form action="logout">
-            <input type="submit" value="Salir">
-        </form>
-
-        <table id="deviceTable">
-            <thead>
-                <tr>
-                    <th>ID Dispositivo</th>
-                    <th>Nombre</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
-                    <th>Alertas</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
     </div>
 
-    <!-- Modal de información del chofer -->
+    <div class="principal-content">
+
+        <div id="map" class="map-container"></div>
+
+        <table id="deviceTable">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ID Dispositivo</th>
+                        <th>Operador</th>
+                        <th>Alertas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
     <div id="choferModal" class="modal">
         <div id="choferModalContent" class="modal-content">
             <div id="choferModalHeader" class="modal-header">
@@ -77,30 +82,8 @@
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            setTimeout(function () {
-                document.getElementById("profileContainer").classList.add("visible");
-                document.getElementById("map").classList.add("visible");
-            }, 500);
-        });
-
-        function toggleSidebar() {
-            var sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('expanded');
-        }
-
-
-        function toggleModal() {
-            var modal = document.getElementById('choferModal');
-            modal.classList.toggle('visible');
-        }
-
-       
-
-        document.getElementById('choferModalClose').addEventListener('click', toggleModal);
-    </script>
+    <script src="{{ url_for('static', filename='js/index/map.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/index/style.js') }}"></script>
 
     <!-- 
     <div class="sidebar">

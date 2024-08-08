@@ -1,9 +1,14 @@
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 class Choferes:
 
     def __init__(self):
-        self.__client = MongoClient('mongodb://localhost:27017')
+        mongo_uri = os.getenv('DATABASE_URL')
+        self.__client = MongoClient(f'{mongo_uri}')
         self.__db = self.__client['Simont']
         self.__collec_chofer = self.__db['choferes']
 

@@ -1,7 +1,12 @@
 from flask_login import UserMixin
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
 
-client = MongoClient('mongodb://localhost:27017')
+load_dotenv()
+
+mongo_uri = os.getenv('DATABASE_URL')
+client = MongoClient(f'{mongo_uri}')
 db = client['Simont']
 collec_user = db['cuentas_usuarios']
 

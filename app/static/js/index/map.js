@@ -101,47 +101,37 @@ async function obtenerDatos(ids) {
     }
 }
 
-function showDeviceTable(deviceId, driverData) {
-    var fecha = fecha_actual(); // Obtén la fecha actual
+// Carga los datos de los choferes y dispositivos
+function showDeviceTable(deviceId, driverData, color_temp) {
+    // Selecciona el cuerpo de la tabla
     var tableBody = document.querySelector('#deviceTable tbody');
 
-    // Borra el contenido actual del cuerpo de la tabla
-    tableBody.innerHTML = '';
-
     // Crea una nueva fila de datos
-    var dataRow = document.createElement('tr');
+    var nuevaFila = tableBody.insertRow();
+    nuevaFila.setAttribute('data-id', deviceId);
 
     // Datos para la fila
-    var dataCells = [
-        deviceId || 'No disponible',
-        driverData.nombre || 'No disponible',
-        driverData.apellido_paterno || 'No disponible',
-        driverData.apellido_materno || 'No disponible'
-    ];
+    var nombreCompleto = `${driverData.nombre || 'No disponible'} ${driverData.apellido_paterno || 'No disponible'}`;
+    
+    var colorCell = nuevaFila.insertCell(0);
+    var colorSpan = document.createElement('span');
+    colorSpan.textContent = '─'; 
+    colorSpan.style.color = color_temp; 
+    colorCell.appendChild(colorSpan);
 
     // Añadir celdas de datos
-    dataCells.forEach(data => {
-        var dataCell = document.createElement('td');
-        dataCell.textContent = data;
-        dataRow.appendChild(dataCell);
-    });
+    nuevaFila.insertCell(1).textContent = deviceId || 'No disponible';
+    nuevaFila.insertCell(2).textContent = nombreCompleto;
 
     // Crea la celda de alertas
-    var alertasCell = document.createElement('td');
     var alertasContent = 'No disponible';
-
     if (driverData.alertas && Object.keys(driverData.alertas).length > 0) {
         alertasContent = '';
         for (var fecha in driverData.alertas) {
             alertasContent += `<strong>${fecha}:</strong> ${driverData.alertas[fecha].join(', ')}<br>`;
         }
     }
-
-    alertasCell.innerHTML = alertasContent;
-    dataRow.appendChild(alertasCell);
-
-    // Añade la fila de datos al cuerpo de la tabla
-    tableBody.appendChild(dataRow);
+    nuevaFila.insertCell(3).innerHTML = alertasContent;
 
     // Muestra la tabla (asegúrate de que esté visible si estaba oculta)
     document.getElementById('deviceTable').style.display = 'table';
@@ -179,7 +169,6 @@ async function dibujarRuta() {
         const dispositivos = await obtenerDispositivos();
         const coordenadas = await obtenerDatos(dispositivos);
         const datos_choferes = await obtenerDatosChoferes(dispositivos);
-        console.log(datos_choferes);
 
         // Eliminar las capas anteriores antes de añadir nuevas
         map.eachLayer(layer => {
@@ -187,6 +176,9 @@ async function dibujarRuta() {
                 map.removeLayer(layer);
             }
         });
+
+        // Borra el contenido actual del cuerpo de la tabla
+        document.querySelector('#deviceTable tbody').innerHTML = '';
 
         // Dibujar cada ruta con un color diferente
         const colors = ['blue', 'red', 'green', 'yellow', 'purple', 'orange'];
@@ -197,12 +189,15 @@ async function dibujarRuta() {
         dispositivos.forEach(id => {
             const latLngs = coordenadas[id].map(coord => [coord.lat, coord.lng]);
             if (latLngs.length > 0) {
-                const polyline = L.polyline(latLngs, { color: colors[colorIndex % colors.length] }).addTo(map);
+
+                let color_temp = colors[colorIndex % colors.length];
+
+                const polyline = L.polyline(latLngs, { color: color_temp }).addTo(map);
                 const lastCoord = latLngs[latLngs.length - 1];
                 
                 // Crear un icono personalizado con el color de la línea
                 const iconHtml = `
-                    <div class="custom-marker" style="background-color: ${colors[colorIndex % colors.length]}">
+                    <div class="custom-marker" style="background-color: ${color_temp}">
                         ${id}
                     </div>
                 `;
@@ -229,7 +224,7 @@ async function dibujarRuta() {
                 });
 
                 const choferData = datos_choferes[id];
-                showDeviceTable(id, choferData)
+                showDeviceTable(id, choferData, color_temp)
 
                 ultimaCoordenada = lastCoord; // Guardar la última coordenada
                 colorIndex++;

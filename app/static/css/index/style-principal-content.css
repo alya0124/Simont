@@ -1,0 +1,99 @@
+/*-----------------ESTILOS principal-content----------*/
+
+.principal-content{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+/*-----------------ESTILOS principal-content----------*/
+
+/*-----------------Estilos MAPA----------------------*/
+.map-container {
+    margin: 20px 5px;
+    height: 500px;
+    border-radius: 15px;
+    background: #eaeaea;
+    opacity: 0;
+    width: 60%;
+    transform: translateY(100%);
+    transition: transform 1s, opacity 1s;
+}
+
+.map-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/*-----------------Estilos MAPA----------------------*/
+
+/*--------------ESTILOS TABLA--------------------*/
+table {
+    width: 30%;
+    height: 100%;
+    border-collapse: separate; 
+    border-spacing: 0; 
+    margin: 20px 5px;
+    font-size: 16px;
+    border-radius: 10px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: none; /* Elimina los bordes de las celdas */
+}
+
+th {
+    background-color: #004d40; /* Color de fondo para las cabeceras */
+    color: #ffffff; /* Color del texto en las cabeceras */
+    font-weight: bold;
+}
+
+td {
+    background-color: #e0f2f1; /* Color de fondo para las celdas de datos */
+}
+
+tr:nth-child(even) {
+    background-color: #b2dfdb; /* Color de fondo alterno para las filas */
+}
+
+
+/*--------------ESTILOS TABLA--------------------*/
+
+/*--------------ESTILOS RESPONSIVOS--------------------*/
+@media (max-width: 768px) {
+    .principal-content {
+        flex-direction: column;
+    }
+
+    .map-container, table {
+        width: 100%;
+    }
+
+    .map-container {
+        height: 300px; /* Ajusta la altura del mapa en pantallas más pequeñas */
+    }
+
+    table {
+        margin: 20px 0;
+        font-size: 14px; /* Reduce el tamaño de la fuente en pantallas más pequeñas */
+    }
+}
+
+@media (min-width: 769px) {
+    .principal-content {
+        flex-direction: row;
+    }
+
+    .map-container {
+        height: 500px; /* Altura del mapa en pantallas grandes */
+    }
+
+    table {
+        width: 30%;
+    }
+}
